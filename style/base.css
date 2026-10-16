@@ -1,0 +1,41 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+.jp-WebMCPStatus {
+  cursor: pointer;
+}
+
+.jp-WebMCPStatus.jp-mod-unavailable .jp-StatusBar-TextItem {
+  opacity: 0.6;
+}
+
+.jp-WebMCPToolList {
+  max-height: 60vh;
+  min-width: 320px;
+  overflow: auto;
+}
+
+.jp-WebMCPToolList-list {
+  padding-left: 20px;
+  margin: 8px 0 0;
+}
+
+.jp-WebMCPToolList-item {
+  line-height: 1.6;
+}
+
+.jp-WebMCPToolList-command {
+  color: var(--jp-ui-font-color2);
+  font-size: var(--jp-ui-font-size0);
+}
+
+.jp-WebMCPToolList-error {
+  color: var(--jp-error-color1);
+}
+
+.jp-WebMCPToolList-warning {
+  color: var(--jp-warn-color1);
+}

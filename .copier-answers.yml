@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.6.5
+_src_path: https://github.com/jupyterlab/extension-template
+advanced: false
+author_email: jeremy.tuloup@gmail.com
+author_name: Jeremy Tuloup
+has_ai_rules: false
+has_binder: false
+has_settings: true
+kind: frontend
+labextension_name: jupyter-webmcp
+project_short_description: Expose Jupyter commands to AI agents as WebMCP tools
+python_name: jupyter_webmcp
+repository: https://github.com/jtpio/jupyter-webmcp
+test: true
+

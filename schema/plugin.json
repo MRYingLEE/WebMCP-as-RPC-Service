@@ -1,0 +1,52 @@
+{
+  "jupyter.lab.setting-icon": "ui-components:extension",
+  "jupyter.lab.setting-icon-label": "WebMCP",
+  "jupyter.lab.internationalization": {
+    "domain": "jupyter_webmcp"
+  },
+  "title": "WebMCP",
+  "description": "Settings of the WebMCP tools that Jupyter exposes to browser agents.",
+  "type": "object",
+  "properties": {
+    "tools": {
+      "type": "array",
+      "title": "Additional tools",
+      "description": "Command-backed tools added to the default tools; a tool with the name of a default tool replaces it. Edit this list in the JSON settings editor.",
+      "items": {
+        "type": "object"
+      },
+      "default": []
+    },
+    "disabledTools": {
+      "type": "array",
+      "title": "Disabled tools",
+      "description": "Names of the tools that are not registered (glob patterns with * and ?). Their commands can still run through execute_command.",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "blockedCommands": {
+      "type": "array",
+      "title": "Blocked commands",
+      "description": "Ids of the commands that tools never run or list (glob patterns with * and ?). The defaults block the core commands that run a list of commands. For a strict setup, also block the menu commands that run other commands.",
+      "items": {
+        "type": "string"
+      },
+      "default": ["apputils:run-all-enabled", "apputils:run-first-enabled"]
+    },
+    "executionTimeout": {
+      "type": "number",
+      "title": "Execution timeout (seconds)",
+      "description": "Tool calls still running after this time return a pending result and continue in the background. 0 waits forever; the maximum is 3600.",
+      "default": 20,
+      "minimum": 0
+    },
+    "maxResultLength": {
+      "type": "integer",
+      "title": "Maximum result length",
+      "description": "Maximum length of a tool result, in characters of JSON (at least 1000). Longer results are shortened.",
+      "default": 40000
+    }
+  }
+}
