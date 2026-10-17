@@ -171,6 +171,11 @@ async function request(cdp, path, init) {
     );
   }
   if (!response.ok) {
+    if (path === '/json/list' && response.status === 404) {
+      throw new Error(
+        `${cdp} is not a Chrome DevTools Protocol endpoint (/json/list returned HTTP 404). If Chrome logged "Cannot start http server for devtools", choose an unused --remote-debugging-port and pass its URL with --cdp or WEBMCP_CDP_URL.`
+      );
+    }
     throw new Error(
       `${path} returned HTTP ${response.status}: ${await response.text()}`
     );
@@ -239,11 +244,20 @@ async function selectPage(options) {
  * `name` (or any tool) is registered and the list stops changing.
  */
 async function loadTools(connection, name) {
-  const { result } = await connection.send('Runtime.evaluate', {
-    expression: 'typeof document.modelContext',
-    returnByValue: true
-  });
-  if (result.value === 'undefined') {
+  const apiDeadline = Date.now() + TOOLS_WAIT;
+  let webmcpAvailable = false;
+  while (Date.now() < apiDeadline) {
+    const { result } = await connection.send('Runtime.evaluate', {
+      expression: 'typeof document.modelContext',
+      returnByValue: true
+    });
+    if (result.value !== 'undefined') {
+      webmcpAvailable = true;
+      break;
+    }
+    await sleep(50);
+  }
+  if (!webmcpAvailable) {
     throw new Error(
       'WebMCP is not available on this page (document.modelContext is undefined). Start Chrome with --enable-features=WebMCP, and open Jupyter from localhost or HTTPS.'
     );

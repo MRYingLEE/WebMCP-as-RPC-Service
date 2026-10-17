@@ -115,6 +115,32 @@ node examples/webmcp-cli.mjs call add_cell '{"notebookPath": "demo.ipynb", "cont
 echo '{"path": ""}' | node examples/webmcp-cli.mjs call list_directory -
 ```
 
+To create a Python notebook, run three dependent Fibonacci cells, verify the result and save the notebook:
+
+```bash
+node examples/create-and-run-notebook.mjs
+```
+
+Pass an optional notebook name, or set `WEBMCP_CDP_URL` and `WEBMCP_PAGE` to select a different Chrome debugging endpoint or page.
+The output includes the WebMCP round-trip time for each cell and the total workflow time.
+
+To re-run every code cell in the currently active notebook without creating, editing or saving a notebook:
+
+```bash
+node examples/run-current-notebook.mjs
+```
+
+This waits for the current notebook's kernel to be idle, then executes code cells in notebook order. It can repeat their side effects and updates outputs in the open notebook, but does not save it. The report includes each cell's execution outputs and separates kernel-ready time from each WebMCP round-trip time and the total cell execution time.
+
+If Chrome reports that it cannot start the DevTools HTTP server because the port is already in use, choose a free port and use it for both Chrome and the script:
+
+```bash
+google-chrome --user-data-dir="$HOME/.chrome-webmcp" \
+  --remote-debugging-port=9223 --enable-features=WebMCP \
+  "https://jtpio.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb"
+WEBMCP_CDP_URL=http://127.0.0.1:9223 node examples/create-and-run-notebook.mjs
+```
+
 - Without `--page <text>`, it uses the first Jupyter page: JupyterLab, Jupyter Notebook or JupyterLite.
 - `list` and `call` wait up to 15 seconds for the page to register its tools.
 - `call` prints the result as JSON. The exit code is 1 when the browser reports the call as failed or canceled; a `{"success": false}` result exits with 0.
