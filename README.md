@@ -1,3 +1,5 @@
+# Test new ideas
+
 # jupyter-webmcp
 
 [![Github Actions Status](https://github.com/jtpio/jupyter-webmcp/workflows/Build/badge.svg)](https://github.com/jtpio/jupyter-webmcp/actions/workflows/build.yml)
@@ -168,3 +170,4 @@ pip uninstall jupyter_webmcp
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the development install and the tests.
+
