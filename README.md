@@ -2,7 +2,7 @@
 
 [![Github Actions Status](https://github.com/jtpio/jupyter-webmcp/workflows/Build/badge.svg)](https://github.com/jtpio/jupyter-webmcp/actions/workflows/build.yml)
 [![Documentation Status](https://img.shields.io/readthedocs/jupyter-webmcp/latest)](https://jupyter-webmcp.readthedocs.io/en/latest/)
-[![lite-badge](https://jupyterlite.rtfd.io/en/latest/_static/badge.svg)](https://jtpio.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb)
+[![lite-badge](https://jupyterlite.rtfd.io/en/latest/_static/badge.svg)](https://mryinglee.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb)
 
 Expose Jupyter commands to browser agents as [WebMCP](https://webmachinelearning.github.io/webmcp/) tools.
 
@@ -20,14 +20,14 @@ agent ──MCP──> browser bridge ──CDP──> Jupyter page in Chrome
 
 Try the extension in your browser with JupyterLite, without installing anything:
 
-[![lite-badge](https://jupyterlite.rtfd.io/en/latest/_static/badge.svg)](https://jtpio.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb)
+[![lite-badge](https://jupyterlite.rtfd.io/en/latest/_static/badge.svg)](https://mryinglee.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb)
 
 Open it in one of these browsers:
 
 - The built-in browser of the [ChatGPT desktop app](docs/clients.md#chatgpt-desktop-app), for the plans and models that have site tools: ask ChatGPT to use the tools of the page.
 - Chrome with WebMCP enabled (see the [requirements](#requirements)). Run the tools by hand in [DevTools](docs/clients.md#chrome-devtools), or connect an agent: the demo notebook explains how.
 
-The same site also serves the [Jupyter Notebook interface](https://jtpio.github.io/jupyter-webmcp/notebooks/index.html?path=demo.ipynb). The site is deployed to GitHub Pages from the [demo](https://github.com/jtpio/jupyter-webmcp/tree/main/demo) folder.
+The same site also serves the [Jupyter Notebook interface](https://mryinglee.github.io/jupyter-webmcp/notebooks/index.html?path=demo.ipynb). The site is deployed to GitHub Pages from the [demo](https://github.com/MRYingLEE/jupyterlite-server/tree/main/demo) folder. The Pages build includes the xeus-javascript Wasm kernel; configure a read-only `XEUS_JAVASCRIPT_TOKEN` Actions secret with access to `MRYingLEE/xeus-javascript-private`.
 
 ## Requirements
 

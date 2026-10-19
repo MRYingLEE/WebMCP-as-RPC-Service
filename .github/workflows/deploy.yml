@@ -23,6 +23,60 @@ jobs:
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
+      - name: Get number of CPU cores
+        if: github.event_name != 'pull_request'
+        id: cpu-cores
+        uses: SimenB/github-actions-cpu-cores@v2
+
+      - name: Require xeus source access
+        if: github.event_name != 'pull_request'
+        env:
+          XEUS_JAVASCRIPT_TOKEN: ${{ secrets.XEUS_JAVASCRIPT_TOKEN }}
+        run: |
+          if [ -z "$XEUS_JAVASCRIPT_TOKEN" ]; then
+            echo "::error::Set the XEUS_JAVASCRIPT_TOKEN Actions secret to a read-only token for MRYingLEE/xeus-javascript-private."
+            exit 1
+          fi
+
+      - name: Checkout xeus-javascript source
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          repository: MRYingLEE/xeus-javascript-private
+          ref: xeus-x-integration
+          path: xeus-javascript
+          token: ${{ secrets.XEUS_JAVASCRIPT_TOKEN }}
+
+      - name: Install the xeus Wasm build environment
+        if: github.event_name != 'pull_request'
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: ./xeus-javascript/environment-wasm-build.yml
+          environment-name: xeus-javascript-wasm-build
+
+      - name: Build the xeus-javascript Wasm kernel
+        if: github.event_name != 'pull_request'
+        shell: bash -l {0}
+        run: |
+          set -eux
+          micromamba create -f xeus-javascript/environment-wasm-host.yml --platform=emscripten-wasm32 --yes
+
+          mkdir xeus-javascript/build
+          pushd xeus-javascript/build
+
+          export PREFIX=$MAMBA_ROOT_PREFIX/envs/xeus-javascript-wasm-host
+          export CMAKE_PREFIX_PATH=$PREFIX
+          export CMAKE_SYSTEM_PREFIX_PATH=$PREFIX
+
+          emcmake cmake \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH=$PREFIX \
+            -DCMAKE_INSTALL_PREFIX=$PREFIX \
+            -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ON \
+            ..
+
+          make -j${{ steps.cpu-cores.outputs.count }} install
+
       - name: Build the extension
         run: |
           set -eux
@@ -40,7 +94,16 @@ jobs:
         working-directory: ./demo
 
       - name: Build the JupyterLite site
+        if: github.event_name == 'pull_request'
         run: uv run jupyter lite build
+        working-directory: ./demo
+
+      - name: Build the JupyterLite site with xeus-javascript
+        if: github.event_name != 'pull_request'
+        shell: bash -l {0}
+        run: |
+          uv run --with jupyterlite-xeus==5.1.0 jupyter lite build \
+            --XeusAddon.prefix="$MAMBA_ROOT_PREFIX/envs/xeus-javascript-wasm-host"
         working-directory: ./demo
 
       - name: Upload artifact

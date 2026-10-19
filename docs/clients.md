@@ -8,7 +8,7 @@ The tools register when the Jupyter page has opened its documents, a few seconds
 
 ## ChatGPT desktop app
 
-Checked with the ChatGPT desktop app 26.1013 for macOS, on the [JupyterLite demo](https://jtpio.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb).
+Checked with the ChatGPT desktop app 26.1013 for macOS, on the [JupyterLite demo](https://mryinglee.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb).
 
 The built-in browser of the app has WebMCP enabled, without a flag. Open the Jupyter page in a tab of this browser, then ask ChatGPT to use the tools of the page. ChatGPT calls them [site tools](https://learn.chatgpt.com/docs/webmcp), and the icon in the address bar lists them. Site tools are available in ChatGPT Work and Codex, with some models and plans only.
 
@@ -137,7 +137,7 @@ If Chrome reports that it cannot start the DevTools HTTP server because the port
 ```bash
 google-chrome --user-data-dir="$HOME/.chrome-webmcp" \
   --remote-debugging-port=9223 --enable-features=WebMCP \
-  "https://jtpio.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb"
+  "https://mryinglee.github.io/jupyter-webmcp/lab/index.html?path=demo.ipynb"
 WEBMCP_CDP_URL=http://127.0.0.1:9223 node examples/create-and-run-notebook.mjs
 ```
 
