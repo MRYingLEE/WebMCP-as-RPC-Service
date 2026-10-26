@@ -1,3 +1,11 @@
+# Contributions beyond upstream
+
+This fork, [jupyterlite-server](https://github.com/MRYingLEE/jupyterlite-server), builds on [jtpio/jupyter-webmcp](https://github.com/jtpio/jupyter-webmcp) with additional notebook automation, more robust browser workflows, and an expanded JupyterLite demo:
+
+- **Notebook automation examples:** [`examples/create-and-run-notebook.mjs`](examples/create-and-run-notebook.mjs) creates a Python notebook, runs dependent Fibonacci cells, verifies the output, and saves the notebook. [`examples/run-current-notebook.mjs`](examples/run-current-notebook.mjs) runs the active notebook's code cells in order, waits for the kernel to become idle, handles pending tool calls, and reports outputs and timings without changing cell source or saving the notebook.
+- **More reliable browser workflows:** The example CLI waits for the WebMCP API to become available and reports actionable errors for invalid Chrome DevTools Protocol endpoints. The [client guide](docs/clients.md#example-client) documents the automation examples and how to configure a debugging port.
+- **Expanded JupyterLite demo:** The demo includes the xeus-javascript Wasm kernel, built from source in the GitHub Pages workflow. Configure the read-only `XEUS_JAVASCRIPT_TOKEN` Actions secret with access to `MRYingLEE/xeus-javascript-private` to enable the build.
+
 # jupyter-webmcp
 
 [![Github Actions Status](https://github.com/jtpio/jupyter-webmcp/workflows/Build/badge.svg)](https://github.com/jtpio/jupyter-webmcp/actions/workflows/build.yml)
@@ -15,14 +23,6 @@ agent ──MCP──> browser bridge ──CDP──> Jupyter page in Chrome
 ```
 
 ![The ChatGPT desktop app uses the WebMCP tools of the JupyterLite demo to create and run a notebook](screenshot.png)
-
-## Contributions beyond upstream
-
-This fork, [jupyterlite-server](https://github.com/MRYingLEE/jupyterlite-server), builds on [jtpio/jupyter-webmcp](https://github.com/jtpio/jupyter-webmcp) with additional notebook automation, more robust browser workflows, and an expanded JupyterLite demo:
-
-- **Notebook automation examples:** [`examples/create-and-run-notebook.mjs`](examples/create-and-run-notebook.mjs) creates a Python notebook, runs dependent Fibonacci cells, verifies the output, and saves the notebook. [`examples/run-current-notebook.mjs`](examples/run-current-notebook.mjs) runs the active notebook's code cells in order, waits for the kernel to become idle, handles pending tool calls, and reports outputs and timings without changing cell source or saving the notebook.
-- **More reliable browser workflows:** The example CLI waits for the WebMCP API to become available and reports actionable errors for invalid Chrome DevTools Protocol endpoints. The [client guide](docs/clients.md#example-client) documents the automation examples and how to configure a debugging port.
-- **Expanded JupyterLite demo:** The demo includes the xeus-javascript Wasm kernel, built from source in the GitHub Pages workflow. Configure the read-only `XEUS_JAVASCRIPT_TOKEN` Actions secret with access to `MRYingLEE/xeus-javascript-private` to enable the build.
 
 ## Try it
 
