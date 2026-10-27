@@ -1,4 +1,4 @@
-# Consume Jupyterlite as RPC Server (Contributions beyond upstream)
+# Consume WebMCP as RPC Service (Jupyter-WebMCP as example)
 
 This fork, [jupyterlite-server](https://github.com/MRYingLEE/jupyterlite-server), builds on [jtpio/jupyter-webmcp](https://github.com/jtpio/jupyter-webmcp) with additional notebook automation, more robust browser workflows, and an expanded JupyterLite demo:
 
